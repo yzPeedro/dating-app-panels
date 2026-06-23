@@ -83,11 +83,13 @@ class MonthlyRevenue extends ChartWidget
                     'label' => 'Amount spent on boosts',
                     'data' => $monthlyPurchasedBoosts->toArray(),
                     'borderColor' => '#f5c242',
+                    'tension' => 0.3,
                 ],
                 [
                     'label' => 'Amount spent on subscriptions',
                     'data' => $monthlyPurchasedSubscriptions->toArray(),
                     'borderColor' => '#f55742',
+                    'tension' => 0.3,
                 ]
             ],
             'labels' => $shortMonths
