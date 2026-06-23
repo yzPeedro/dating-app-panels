@@ -17,7 +17,7 @@ class UserVerificationResource extends Resource
 {
     protected static ?string $model = UserVerification::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::CheckBadge;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
     protected static ?string $label = 'Users Verifications';
 

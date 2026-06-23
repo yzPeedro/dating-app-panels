@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Api\UserVerifications\Tables;
 
+use App\Filament\Resources\Api\Users\UserResource;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -19,7 +20,12 @@ class UserVerificationsTable
         return $table
             ->columns([
                 TextColumn::make('id')->label('ID')->searchable()->sortable(),
-                TextColumn::make('user.name')->label('User Name')->searchable(),
+                TextColumn::make('user.name')
+                    ->label('User Name')
+                    ->searchable()
+                    ->url(fn ($record) => UserResource::getUrl('edit', [$record->user_id]))
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-o-arrow-top-right-on-square'),
                 TextColumn::make('status')
                     ->searchable()
                     ->sortable()

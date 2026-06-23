@@ -19,7 +19,7 @@ class UserReportResource extends Resource
 {
     protected static ?string $model = UserReport::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Flag;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
     protected static string | UnitEnum | null $navigationGroup = 'Api';
 
