@@ -19,7 +19,7 @@ class UserVerificationResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Users;
 
-    protected static ?string $label = 'Users Verifications';
+    protected static ?string $label = 'User Verifications';
 
     protected static ?string $recordTitleAttribute = 'user_id';
 
