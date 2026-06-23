@@ -44,7 +44,8 @@ class BoostForm
                         TextInput::make('users_active_count')
                             ->label('Users using this boost')
                             ->formatStateUsing(fn ($record) => $record->usersActive->count())
-                            ->disabled(),
+                            ->disabled()
+                            ->dehydrated(false),
                     ])
             ]);
     }

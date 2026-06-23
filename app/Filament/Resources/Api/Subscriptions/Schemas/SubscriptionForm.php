@@ -6,6 +6,7 @@ use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Schema;
 use Leandrocfe\FilamentPtbrFormFields\Money;
@@ -55,8 +56,17 @@ class SubscriptionForm
                             ->columnSpanFull()
                             ->required()
                             ->maxLength(255),
+                    ]),
+                Fieldset::make('information')
+                    ->columnSpanFull()
+                    ->label('Information')
+                    ->schema([
+                        TextInput::make('users_active_count')
+                            ->label('Users using this subscription')
+                            ->formatStateUsing(fn ($record) => $record->usersActive->count())
+                            ->disabled()
+                            ->dehydrated(false),
                     ])
-
             ]);
     }
 }

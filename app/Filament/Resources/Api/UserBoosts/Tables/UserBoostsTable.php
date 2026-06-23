@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Filament\Resources\Api\UserReports\Tables;
+namespace App\Filament\Resources\Api\UserBoosts\Tables;
 
-use App\Enums\UserReportType;
+use App\Filament\Resources\Api\Boosts\BoostResource;
 use App\Filament\Resources\Api\Users\UserResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Carbon;
 
-class UserReportsTable
+class UserBoostsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
+                TextColumn::make('id')->label('ID')->searchable()->sortable(),
                 TextColumn::make('user.name')
                     ->label('User')
                     ->searchable()
@@ -23,35 +24,22 @@ class UserReportsTable
                     ->url(fn ($record) => UserResource::getUrl('edit', [$record->user_id]))
                     ->openUrlInNewTab()
                     ->icon('heroicon-o-arrow-top-right-on-square'),
-                TextColumn::make('reportedBy.name')
-                    ->label('Reported By')
+
+                TextColumn::make('boost.name')->label('Boost')
                     ->searchable()
                     ->sortable()
-                    ->url(fn ($record) => UserResource::getUrl('edit', [$record->reported_by]))
+                    ->url(fn ($record) => BoostResource::getUrl('edit', [$record->user_id]))
                     ->openUrlInNewTab()
                     ->icon('heroicon-o-arrow-top-right-on-square'),
-                TextColumn::make('type')
-                    ->label('Type')
-                    ->searchable()
-                    ->sortable()
-                    ->formatStateUsing(fn ($state) => UserReportType::from($state)->label()),
-                TextColumn::make('reason')
-                    ->label('Reason')
-                    ->searchable()
-                    ->sortable()
-                    ->limit(20)
-                    ->tooltip(fn ($record) => $record->reason),
-                TextColumn::make('created_at')
-                    ->label('Reported At')
-                    ->searchable()
-                    ->sortable()
-                    ->dateTime('d/m/Y H:i:s'),
+
+                TextColumn::make('created_at')->label('Started At')->dateTime('d/m/Y H:i:s')->searchable()->sortable(),
+                TextColumn::make('expires_at')->label('Expires At')->dateTime('d/m/Y H:i:s')->searchable()->sortable(),
             ])
             ->filters([
                 //
             ])
             ->recordActions([
-                //
+                EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

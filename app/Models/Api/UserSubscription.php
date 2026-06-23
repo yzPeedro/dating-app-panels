@@ -13,4 +13,9 @@ class UserSubscription extends ApiModel
     {
         return $this->belongsTo(Subscription::class, 'subscription_id', 'id');
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
