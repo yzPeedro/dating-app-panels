@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Api\Users\Tables;
 
+use App\Filament\Resources\Api\Boosts\BoostResource;
+use App\Filament\Resources\Api\Subscriptions\SubscriptionResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -26,9 +28,9 @@ class UsersTable
                     ->label('Email address')
                     ->searchable()
                     ->sortable(),
+
                 TextColumn::make('activeSubscription.name')
                     ->placeholder('N/A')
-                    ->copyable()
                     ->sortable(query: function (Builder $query) {
                         return $query->orWhereHas('subscriptions.subscription', function (Builder $sortableQuery) {
                             $sortableQuery->orderBy('name');
@@ -38,10 +40,19 @@ class UsersTable
                         return $query->orWhereHas('subscriptions.subscription', function (Builder $subscriptionQuery) use ($search) {
                             $subscriptionQuery->where('name', 'like', "%$search%");
                         });
-                    }),
+                    })
+                    ->url(function ($record) {
+                        if(! $record->activeSubscription) {
+                            return null;
+                        }
+
+                        return SubscriptionResource::getUrl('edit', [$record->activeSubscription->id]);
+                    })
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-o-arrow-top-right-on-square'),
+
                 TextColumn::make('activeBoost.name')
                     ->placeholder('N/A')
-                    ->copyable()
                     ->sortable(query: function (Builder $query) {
                         return $query->orWhereHas('boosts.boost', function (Builder $sortableQuery) {
                             $sortableQuery->orderBy('name');
@@ -51,7 +62,16 @@ class UsersTable
                         return $query->orWhereHas('boosts.boost', function (Builder $subscriptionQuery) use ($search) {
                             $subscriptionQuery->where('name', 'like', "%$search%");
                         });
-                    }),
+                    })
+                    ->url(function ($record) {
+                        if(! $record->activeBoost) {
+                            return null;
+                        }
+
+                        return BoostResource::getUrl('edit', [$record->activeBoost->id]);
+                    })
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-o-arrow-top-right-on-square'),
             ])
             ->filters([
                 //

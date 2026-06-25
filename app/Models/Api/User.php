@@ -5,10 +5,12 @@ namespace App\Models\Api;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Notifications\Notifiable;
 
 #[Guarded([])]
 class User extends ApiModel
 {
+    use Notifiable;
 
     public function details(): HasOne
     {
