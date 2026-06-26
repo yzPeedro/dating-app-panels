@@ -8,9 +8,12 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TextInput\Actions\CopyAction;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Tiptap\Nodes\Text;
 
 class UserAppReportForm
 {
@@ -23,17 +26,32 @@ class UserAppReportForm
                     ->columnSpanFull()
                     ->columns()
                     ->schema([
+                        Fieldset::make('User')
+                            ->relationship('user')
+                            ->columnSpanFull()
+                            ->schema([
+                                TextInput::make('name')
+                                    ->suffixActions([
+                                        Action::make('open_user_page')
+                                            ->url(fn ($record) => UserResource::getUrl('edit', [$record->getKey()]))
+                                            ->icon('heroicon-s-arrow-top-right-on-square')
+                                            ->openUrlInNewTab(),
+                                        CopyAction::make('copy_to_clipboard')
+                                            ->icon('heroicon-o-clipboard')
+                                            ->color('primary')
+                                    ])
+                                    ->dehydrated(false),
+                                TextInput::make('email')
+                                    ->suffixActions([
+                                        CopyAction::make('copy_to_clipboard')
+                                            ->icon('heroicon-o-clipboard')
+                                            ->color('primary')
+                                    ])
+                                    ->dehydrated(false),
+                            ]),
                         TextInput::make('id')
                             ->dehydrated(false),
-                        Select::make('user_id')
-                            ->relationship(name: 'user', titleAttribute: 'name')
-                            ->suffixActions([
-                                Action::make('open_user_page')
-                                    ->url(fn ($record) => UserResource::getUrl('edit', [$record->user_id]))
-                                    ->icon('heroicon-o-arrow-top-right-on-square')
-                                    ->openUrlInNewTab()
-                            ])
-                            ->dehydrated(false),
+                        TextInput::make('user.email'),
                         TextInput::make('type')
                             ->label('Type')
                             ->dehydrated(false),

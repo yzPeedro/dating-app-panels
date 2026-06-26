@@ -26,7 +26,6 @@ class EditUserAppReport extends EditRecord
                 ->icon('heroicon-s-envelope')
                 ->iconPosition(IconPosition::After)
                 ->label('Reply Report')
-                ->disabled(fn (UserAppReport $record) => $record->isSolved())
                 ->modal()
                 ->schema([
                     Toggle::make('solved')

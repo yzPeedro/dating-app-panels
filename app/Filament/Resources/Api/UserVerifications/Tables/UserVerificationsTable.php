@@ -25,7 +25,7 @@ class UserVerificationsTable
                     ->searchable()
                     ->url(fn ($record) => UserResource::getUrl('edit', [$record->user_id]))
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
                 TextColumn::make('status')
                     ->searchable()
                     ->sortable()

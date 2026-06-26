@@ -59,7 +59,7 @@ class EditUser extends EditRecord
                 ->action(function ($record) {
                     ResetPassword::createUrlUsing(fn() => config('app.api.url') . '/api/reset-password');
 
-                    $status = Password::broker(Filament::getAuthPasswordBroker())->sendResetLink(
+                    $status = Password::broker('api-users')->sendResetLink(
                         ['email' => $record->email]
                     );
 

@@ -2,15 +2,17 @@
 
 namespace App\Models\Api;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 
 #[Guarded([])]
-class User extends ApiModel
+class User extends ApiModel implements \Illuminate\Contracts\Auth\CanResetPassword
 {
     use Notifiable;
+    use CanResetPassword;
 
     public function details(): HasOne
     {

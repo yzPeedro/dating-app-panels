@@ -23,14 +23,14 @@ class UserMatchesTable
                     ->sortable()
                     ->url(fn ($record) => UserResource::getUrl('edit', [$record->first_user]))
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
 
                 TextColumn::make('secondUser.name')->label('Matched With')
                     ->searchable()
                     ->sortable()
                     ->url(fn ($record) => UserResource::getUrl('edit', [$record->second_user]))
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
 
                 TextColumn::make('created_at')
                     ->label('Matched At')

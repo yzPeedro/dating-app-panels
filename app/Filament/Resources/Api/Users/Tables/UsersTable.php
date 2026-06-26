@@ -49,7 +49,7 @@ class UsersTable
                         return SubscriptionResource::getUrl('edit', [$record->activeSubscription->id]);
                     })
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
 
                 TextColumn::make('activeBoost.name')
                     ->placeholder('N/A')
@@ -71,7 +71,7 @@ class UsersTable
                         return BoostResource::getUrl('edit', [$record->activeBoost->id]);
                     })
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
             ])
             ->filters([
                 //

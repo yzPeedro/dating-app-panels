@@ -22,7 +22,7 @@ class UserBlocksTable
                     ->sortable()
                     ->url(fn ($record) => UserResource::getUrl('edit', [$record->target_user_id]))
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
 
                 TextColumn::make('user.name')
                     ->label('Blocked By')
@@ -30,7 +30,7 @@ class UserBlocksTable
                     ->sortable()
                     ->url(fn ($record) => UserResource::getUrl('edit', [$record->user_id]))
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
 
                 TextColumn::make('created_at')->label('Blocked At')->dateTime('d/m/Y H:i:s')->searchable()->sortable(),
             ])

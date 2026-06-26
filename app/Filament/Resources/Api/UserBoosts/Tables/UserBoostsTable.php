@@ -23,14 +23,14 @@ class UserBoostsTable
                     ->sortable()
                     ->url(fn ($record) => UserResource::getUrl('edit', [$record->user_id]))
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
 
                 TextColumn::make('boost.name')->label('Boost')
                     ->searchable()
                     ->sortable()
                     ->url(fn ($record) => BoostResource::getUrl('edit', [$record->user_id]))
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
 
                 TextColumn::make('created_at')->label('Started At')->dateTime('d/m/Y H:i:s')->searchable()->sortable(),
                 TextColumn::make('expires_at')->label('Expires At')->dateTime('d/m/Y H:i:s')->searchable()->sortable(),

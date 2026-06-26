@@ -23,7 +23,7 @@ class UserSubscriptionsTable
                     ->sortable()
                     ->url(fn ($record) => UserResource::getUrl('edit', [$record->user_id]))
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
 
                 TextColumn::make('subscription.name')
                     ->label('Subscription')
@@ -31,7 +31,7 @@ class UserSubscriptionsTable
                     ->sortable()
                     ->url(fn ($record) => SubscriptionResource::getUrl('edit', [$record->subscription_id]))
                     ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square'),
+                    ->icon('heroicon-s-arrow-top-right-on-square'),
 
                 TextColumn::make('started_at')->label('Started at')->dateTime('d/m/Y H:i:s')->searchable()->sortable(),
                 TextColumn::make('expires_at')->label('Expires at')->dateTime('d/m/Y H:i:s')->searchable()->sortable(),

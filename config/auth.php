@@ -67,10 +67,11 @@ return [
             'model' => env('AUTH_MODEL', User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'api-users' => [
+             'driver' => 'eloquent',
+             'table' => 'users',
+             'model' => \App\Models\Api\User::class,
+         ],
     ],
 
     /*
@@ -99,6 +100,13 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+        'api-users' => [
+            'provider' => 'api-users',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ]
     ],
 
     /*
