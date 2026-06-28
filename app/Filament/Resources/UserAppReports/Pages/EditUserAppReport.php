@@ -18,6 +18,11 @@ class EditUserAppReport extends EditRecord
 {
     protected static string $resource = UserAppReportResource::class;
 
+    protected function getFormActions(): array
+    {
+        return [];
+    }
+
     protected function getHeaderActions(): array
     {
         return [
@@ -29,13 +34,14 @@ class EditUserAppReport extends EditRecord
                 ->modal()
                 ->schema([
                     Toggle::make('solved')
+                        ->hidden($this->record->isSolved())
                         ->label('Problem was solved?'),
                     RichEditor::make('answer')
                         ->required()
                         ->label('Answer Report'),
                 ])
                 ->action(function (UserAppReport $record, array $data) {
-                    $record->answer($data['answer'], $data['solved'] ?? false);
+                    $record->answer($data['answer'], $data['solved'] ?? null);
 
                     Notification::make()
                         ->title('Answer sent successfully!')
@@ -43,14 +49,36 @@ class EditUserAppReport extends EditRecord
                         ->send();
                 }),
             Action::make('solve')
-                ->icon('heroicon-s-check-circle')
+                ->unless($this->record->refresh()->isSolved(), function ($component) {
+                    $component
+                        ->icon('heroicon-s-check-circle')
+                        ->label('Mark as solved')
+                        ->color('success');
+                })
+                ->when($this->record->refresh()->isSolved(), function ($component) {
+                    $component
+                        ->icon('heroicon-s-exclamation-triangle')
+                        ->label('Mark as pending')
+                        ->color('gray');
+                })
                 ->iconPosition(IconPosition::After)
-                ->label('Mark as solved')
                 ->requiresConfirmation()
-                ->color('success')
-                ->disabled(fn (UserAppReport $record) => $record->isNotPending())
                 ->action(function (UserAppReport $record) {
-                    $record->resolve(true);
+                    $solved = $record->isSolved();
+
+                    $record->resolve(!$solved);
+
+                    Notification::make()
+                        ->when(!$solved, function ($component) {
+                            $component->title('Report marked as solved successfully!');
+                        })
+                        ->when($solved, function ($component) {
+                            $component->title('Report marked as pending successfully!');
+                        })
+                        ->success()
+                        ->send();
+
+                    return redirect(request()->header('Referer'));
                 })
         ];
     }

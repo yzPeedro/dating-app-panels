@@ -66,6 +66,9 @@ class UserAppReportForm
                                 'pending' => 'danger',
                             })
                             ->dehydrated(false),
+                        TextInput::make('report_code')
+                            ->label('Report Code')
+                            ->dehydrated(false),
                         TextInput::make('answered')
                             ->label('Answered')
                             ->suffixIcon(fn ($record) => match ($record->answered) {

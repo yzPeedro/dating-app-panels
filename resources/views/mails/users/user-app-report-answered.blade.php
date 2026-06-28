@@ -1,3 +1,7 @@
-<x-mail::message>
-    {!! $answer !!}
-</x-mail::message>
+<div>
+    <x-mail::message>
+        {!! $answer !!}
+
+        Report code: {{ $reportCode }}
+    </x-mail::message>
+</div>

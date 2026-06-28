@@ -37,6 +37,11 @@ class UserAppReportsTable
                         true => Heroicon::CheckCircle,
                         false => Heroicon::XMark
                     }),
+                TextColumn::make('report_code')
+                    ->label('Report Code')
+                    ->searchable()
+                    ->sortable()
+                    ->copyable(),
                 TextColumn::make('validated_at')
                     ->label('Validated At')
                     ->searchable()

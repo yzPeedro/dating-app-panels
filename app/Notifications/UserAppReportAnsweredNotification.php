@@ -16,6 +16,7 @@ class UserAppReportAnsweredNotification extends Notification
      */
     public function __construct(
         private string $answer,
+        private string $reportCode,
     )
     {
         //
@@ -38,7 +39,10 @@ class UserAppReportAnsweredNotification extends Notification
     {
         return (new MailMessage)
             ->subject('Thank you for reporting')
-            ->markdown('mails.users.user-app-report-answered', ['answer' => $this->answer]);
+            ->markdown('mails.users.user-app-report-answered', [
+                'answer' => $this->answer,
+                'reportCode' => $this->reportCode,
+            ]);
     }
 
     /**

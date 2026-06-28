@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Guarded([])]
 class UserAppReport extends ApiModel
 {
-
     protected $casts = [
         'answered' => 'boolean',
     ];
@@ -19,23 +18,22 @@ class UserAppReport extends ApiModel
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function answer(string $answer, bool $solved = false): void
+    public function answer(string $answer, ?bool $solved = null): void
     {
-        if ($this->isSolved()) {
-            return;
-        }
-
         $this->user->notify(
-            new UserAppReportAnsweredNotification($answer)
+            new UserAppReportAnsweredNotification($answer, $this->report_code)
         );
 
-        $this->resolve($solved);
+        if (!is_null($solved)) {
+            $this->resolve($solved);
+        }
+
+        $this->update(['answered' => true]);
     }
 
-    public function resolve(bool $solved = false): void
+    public function resolve(bool $solved): void
     {
         $this->update([
-            'answered' => true,
             'validated_at' => now(),
             'status' => $solved ? 'solved' : 'pending',
         ]);
